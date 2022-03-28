@@ -29,38 +29,167 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  void _incrementCounter() {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+      body: SafeArea(
+        child: Expanded(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Image(
+                  image: const AssetImage('assets/puzzle.png'),
+                  height: MediaQuery.of(context).size.height * 0.25,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text('quizap',
+                    style: Theme.of(context).textTheme.headline5),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 48, 16, 0),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18),
+                      child: MaterialButton(
+                        onPressed: _incrementCounter,
+                        elevation: 4,
+                        height: 58.0,
+                        color: Colors.black,
+                        shape: const StadiumBorder(),
+                        child: Container(
+                          constraints: const BoxConstraints(
+                            maxWidth: 220,
+                          ),
+                          child: Center(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                  ),
+                                  child: Icon(
+                                    Icons.alternate_email,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  'Login with Email',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18),
+                      child: MaterialButton(
+                        onPressed: _incrementCounter,
+                        elevation: 4,
+                        height: 58.0,
+                        color: Colors.red,
+                        shape: const StadiumBorder(),
+                        child: Container(
+                          constraints: const BoxConstraints(
+                            maxWidth: 220,
+                          ),
+                          child: Center(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                  ),
+                                  child: Icon(
+                                    Icons.email,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  'Login with Google',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18),
+                      child: MaterialButton(
+                        onPressed: _incrementCounter,
+                        elevation: 4,
+                        height: 58.0,
+                        color: Colors.blue,
+                        shape: const StadiumBorder(),
+                        child: Container(
+                          constraints: const BoxConstraints(
+                            maxWidth: 220,
+                          ),
+                          child: Center(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                  ),
+                                  child: Icon(
+                                    Icons.email,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  'Login with Facebook',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 24),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle:
+                            const TextStyle(fontSize: 18, letterSpacing: 2),
+                      ),
+                      onPressed: () {},
+                      child: const Text('SIGN UP WITH EMAIL'),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
