@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizap/view/custom_widgets/rounded_button.dart';
 
 void main() {
   runApp(const MyApp());
@@ -56,116 +57,35 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(top: 18),
-                      child: MaterialButton(
+                      child: RoundedButton(
+                        outlined: false,
                         onPressed: _incrementCounter,
-                        elevation: 4,
-                        height: 58.0,
-                        color: Colors.black,
-                        shape: const StadiumBorder(),
-                        child: Container(
-                          constraints: const BoxConstraints(
-                            maxWidth: 220,
-                          ),
-                          child: Center(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: const <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                  ),
-                                  child: Icon(
-                                    Icons.alternate_email,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  'Login with Email',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                        text: "Login with Email",
+                        icon: Icons.alternate_email_outlined,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18),
+                      child: RoundedButton(
+                        outlined: false,
+                        onPressed: _incrementCounter,
+                        text: "Login with Google",
+                        backgroundColor: Colors.red,
+                        image: const Image(
+                          image: AssetImage('google.png'),
+                          width: 22,
+                          height: 22,
                         ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 18),
-                      child: MaterialButton(
+                      child: RoundedButton(
+                        outlined: false,
                         onPressed: _incrementCounter,
-                        elevation: 4,
-                        height: 58.0,
-                        color: Colors.red,
-                        shape: const StadiumBorder(),
-                        child: Container(
-                          constraints: const BoxConstraints(
-                            maxWidth: 220,
-                          ),
-                          child: Center(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: const <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                  ),
-                                  child: Icon(
-                                    Icons.email,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  'Login with Google',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 18),
-                      child: MaterialButton(
-                        onPressed: _incrementCounter,
-                        elevation: 4,
-                        height: 58.0,
-                        color: Colors.blue,
-                        shape: const StadiumBorder(),
-                        child: Container(
-                          constraints: const BoxConstraints(
-                            maxWidth: 220,
-                          ),
-                          child: Center(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: const <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                  ),
-                                  child: Icon(
-                                    Icons.email,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  'Login with Facebook',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        text: "Login with Facebook",
+                        backgroundColor: Colors.blue,
+                        icon: Icons.facebook,
                       ),
                     ),
                   ],
@@ -179,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: TextButton(
                       style: TextButton.styleFrom(
                         textStyle:
-                            const TextStyle(fontSize: 18, letterSpacing: 2),
+                            const TextStyle(fontSize: 16, letterSpacing: 2),
                       ),
                       onPressed: () {},
                       child: const Text('SIGN UP WITH EMAIL'),
