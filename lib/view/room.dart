@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:quizap/view/custom_widgets/rounded_button.dart';
+import 'package:quizap/view/waiting.dart';
 
 class RoomPage extends StatefulWidget {
   const RoomPage({Key? key}) : super(key: key);
@@ -41,7 +43,9 @@ class _RoomPageState extends State<RoomPage> {
                   ),
                   RoundedButton(
                     outlined: false,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(const WaitingPage());
+                    },
                     maxWidth: MediaQuery.of(context).size.width * 0.6,
                     text: 'Join now!'.toUpperCase(),
                   ),
