@@ -75,6 +75,4 @@ dependencies {
     // Also declare the dependency for the Google Play services library and specify its version
     implementation 'com.google.android.gms:play-services-auth:20.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    classpath 'com.google.gms:google-services:4.2.0'
-    classpath 'com.android.tools.build:gradle:3.2.1'
 }
