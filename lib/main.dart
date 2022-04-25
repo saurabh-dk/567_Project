@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter auth Demo',
-      home: (AuthenticationHelper().user != null) ? Home() : Login(),
+      home: (AuthenticationHelper().getUser() != null) ? Home() : Login(),
     );
   }
 }

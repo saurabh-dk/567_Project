@@ -56,8 +56,6 @@ class Login extends StatelessWidget {
       ),
     );
   }
-
-
 }
 
 class LoginForm extends StatefulWidget {
@@ -151,25 +149,39 @@ class _LoginFormState extends State<LoginForm> {
               onPressed: () {
                 // Respond to button press
 
-                if (_formKey.currentState!.validate()) {
-                  _formKey.currentState!.save();
+                AuthenticationHelper().signInWithGoogle().then((result) {
+                  if (result == null) {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => Home()));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                        result,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ));
+                  }
+                });
 
-                  AuthenticationHelper()
-                      .signIn(email: email!, password: password!)
-                      .then((result) {
-                    if (result == null) {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => Home()));
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(
-                          result,
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ));
-                    }
-                  });
-                }
+                // if (_formKey.currentState!.validate()) {
+                //   _formKey.currentState!.save();
+
+                //   AuthenticationHelper()
+                //       .signIn(email: email!, password: password!)
+                //       .then((result) {
+                //     if (result == null) {
+                //       Navigator.pushReplacement(context,
+                //           MaterialPageRoute(builder: (context) => Home()));
+                //     } else {
+                //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                //         content: Text(
+                //           result,
+                //           style: TextStyle(fontSize: 16),
+                //         ),
+                //       ));
+                //     }
+                //   });
+                // }
               },
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(

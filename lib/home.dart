@@ -8,7 +8,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Container(
-          child: Text('Welcome'),
+          child: Text(AuthenticationHelper().getUser()!.email!),
         ),
       ),
       floatingActionButton: FloatingActionButton(
