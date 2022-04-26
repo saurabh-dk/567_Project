@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                         text: "Login with Google",
                         backgroundColor: Colors.red,
                         image: const Image(
-                          image: AssetImage('google.png'),
+                          image: AssetImage('assets/google.png'),
                           width: 22,
                           height: 22,
                         ),
