@@ -149,7 +149,7 @@ class _LoginFormState extends State<LoginForm> {
               onPressed: () {
                 // Respond to button press
 
-                AuthenticationHelper().signInWithGoogle().then((result) {
+                AuthenticationHelper().signInWithFacebook().then((result) {
                   if (result == null) {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) => Home()));
