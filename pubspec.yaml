@@ -27,6 +27,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  get:
+  avatar_glow: 2.0.2
+
   flutter:
     sdk: flutter
 
