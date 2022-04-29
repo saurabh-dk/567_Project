@@ -47,7 +47,7 @@ class _RoomPageState extends State<RoomPage> {
                       RoundedButton(
                         outlined: false,
                         onPressed: () {
-                          Get.to(const WaitingPage());
+                          Get.to(() => const WaitingPage());
                         },
                         maxWidth: MediaQuery.of(context).size.width * 0.6,
                         text: 'Join now!'.toUpperCase(),
@@ -80,7 +80,7 @@ class _RoomPageState extends State<RoomPage> {
                     ),
                     icon: const Icon(Icons.settings),
                     onPressed: () {
-                      Get.to(const SettingsPage());
+                      Get.to(() => const SettingsPage());
                     },
                   ),
                 ),

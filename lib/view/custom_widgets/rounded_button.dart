@@ -21,7 +21,7 @@ class RoundedButton extends StatelessWidget {
       this.isLoading = false,
       this.textColor = Colors.white,
       this.iconColor = Colors.white,
-      this.backgroundColor = const Color.fromARGB(255, 0, 0, 0),
+      this.backgroundColor = Colors.black,
       this.fontSize = 16,
       this.maxWidth = 220})
       : super(key: key);

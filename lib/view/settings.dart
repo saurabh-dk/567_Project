@@ -59,7 +59,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       });
                       AuthenticationHelper()
                           .signOut()
-                          .then((value) => Get.offAll(const LoginPage()));
+                          .then((value) => Get.offAll(() => const LoginPage()));
                     },
                     text: "LOG OUT",
                     backgroundColor: Colors.red,

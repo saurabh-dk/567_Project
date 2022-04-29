@@ -4,7 +4,6 @@ import 'package:quizap/controller/authentication.dart';
 import 'package:quizap/view/custom_widgets/email_login.dart';
 import 'package:quizap/view/room.dart';
 import 'package:quizap/view/signup.dart';
-import 'dart:io' show Platform;
 
 import 'custom_widgets/rounded_button.dart';
 
@@ -49,10 +48,12 @@ class _LoginPageState extends State<LoginPage> {
                             isScrollControlled: true,
                             elevation: 4,
                             shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(25.0))),
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(25.0),
+                              ),
+                            ),
                             builder: (BuildContext context) {
-                              return LoginForm();
+                              return const LoginForm();
                             },
                           ),
                         },
@@ -71,13 +72,12 @@ class _LoginPageState extends State<LoginPage> {
                             if (result == null) {
                               Get.off(const RoomPage());
                             } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text(
-                                  result,
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                              ));
+                              Get.snackbar(
+                                  "Unable to Login with Google", result,
+                                  duration: const Duration(seconds: 5),
+                                  barBlur: 0,
+                                  backgroundColor: Colors.red,
+                                  colorText: Colors.white);
                             }
                           });
                         },
@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: RoundedButton(
                         outlined: false,
                         onPressed: () {
-                          Get.to(RoomPage());
+                          Get.to(() => const RoomPage());
                           // AuthenticationHelper()
                           //     .signInWithFacebook()
                           //     .then((result) {

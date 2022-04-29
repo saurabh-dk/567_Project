@@ -128,7 +128,7 @@ class _LoginFormState extends State<LoginForm> {
                             _isLoading = false;
                           });
                           if (result == null) {
-                            Get.offAll(const RoomPage());
+                            Get.offAll(() => const RoomPage());
                           } else {
                             if (kDebugMode) {
                               print(result);

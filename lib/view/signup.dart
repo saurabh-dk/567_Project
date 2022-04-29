@@ -154,7 +154,7 @@ class _SignupFormState extends State<Signup> {
                             _isLoading = false;
                           });
                           if (result == null) {
-                            Get.offAll(RoomPage());
+                            Get.offAll(() => RoomPage());
                           } else {
                             if (kDebugMode) {
                               print(result);
