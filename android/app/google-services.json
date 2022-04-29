@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "576917259721",
+    "project_id": "quizap-3ffa1",
+    "storage_bucket": "quizap-3ffa1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:576917259721:android:884b2692367c57fd005418",
+        "android_client_info": {
+          "package_name": "com.example.quizap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "576917259721-lbi0eei02cba8b6jirtlt16memqap1uo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMn70978JN9ZbPRwndNZar3pryWYlLCnk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "576917259721-lbi0eei02cba8b6jirtlt16memqap1uo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

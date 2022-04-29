@@ -9,6 +9,7 @@ class RoundedButton extends StatelessWidget {
   final double? fontSize;
   final double maxWidth;
   final bool outlined;
+  final bool isLoading;
 
   const RoundedButton(
       {Key? key,
@@ -17,9 +18,10 @@ class RoundedButton extends StatelessWidget {
       required this.text,
       this.image,
       this.icon,
+      this.isLoading = false,
       this.textColor = Colors.white,
       this.iconColor = Colors.white,
-      this.backgroundColor = Colors.black,
+      this.backgroundColor = const Color.fromARGB(255, 0, 0, 0),
       this.fontSize = 16,
       this.maxWidth = 220})
       : super(key: key);
@@ -43,28 +45,42 @@ class RoundedButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            if (image != null || icon != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
+            if (!isLoading)
+              if (image != null || icon != null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                  ),
+                  child: (image != null)
+                      ? image
+                      : Icon(
+                          icon,
+                          color: iconColor,
+                        ),
                 ),
-                child: (image != null)
-                    ? image
-                    : Icon(
-                        icon,
-                        color: iconColor,
-                      ),
+            if (!isLoading)
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                  child: (image != null || icon != null)
+                      ? _getText()
+                      : Center(
+                          child: _getText(),
+                        ),
+                ),
               ),
-            Expanded(
-              child: Padding(
+            if (isLoading)
+              Padding(
                 padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                child: (image != null || icon != null)
-                    ? _getText()
-                    : Center(
-                        child: _getText(),
-                      ),
-              ),
-            ),
+                child: SizedBox(
+                  height: 18,
+                  width: 18,
+                  child: CircularProgressIndicator(
+                      color: (outlined || (backgroundColor == Colors.white))
+                          ? Colors.black
+                          : Colors.white),
+                ),
+              )
           ],
         ),
       ),
@@ -75,7 +91,7 @@ class RoundedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return outlined
         ? OutlinedButton(
-            onPressed: onPressed,
+            onPressed: isLoading ? () {} : onPressed,
             style: OutlinedButton.styleFrom(
               shape: const StadiumBorder(),
               side: BorderSide(color: backgroundColor, width: 2),
@@ -83,7 +99,7 @@ class RoundedButton extends StatelessWidget {
             child: _getButton(),
           )
         : MaterialButton(
-            onPressed: onPressed,
+            onPressed: isLoading ? () {} : onPressed,
             elevation: 4,
             color: backgroundColor,
             shape: const StadiumBorder(),
