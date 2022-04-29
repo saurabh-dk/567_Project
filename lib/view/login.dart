@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:quizap/controller/authentication.dart';
+import 'package:quizap/view/custom_widgets/email_login.dart';
+import 'package:quizap/view/room.dart';
+import 'package:quizap/view/signup.dart';
+import 'dart:io' show Platform;
 
 import 'custom_widgets/rounded_button.dart';
 
@@ -10,8 +16,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  void _incrementCounter() {}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +43,19 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.only(top: 18),
                       child: RoundedButton(
                         outlined: false,
-                        onPressed: _incrementCounter,
+                        onPressed: () => {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            elevation: 4,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(25.0))),
+                            builder: (BuildContext context) {
+                              return LoginForm();
+                            },
+                          ),
+                        },
                         text: "Login with Email",
                         icon: Icons.alternate_email_outlined,
                       ),
@@ -48,7 +64,23 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.only(top: 18),
                       child: RoundedButton(
                         outlined: false,
-                        onPressed: _incrementCounter,
+                        onPressed: () {
+                          AuthenticationHelper()
+                              .signInWithGoogle()
+                              .then((result) {
+                            if (result == null) {
+                              Get.off(const RoomPage());
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(
+                                  result,
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ));
+                            }
+                          });
+                        },
                         text: "Login with Google",
                         backgroundColor: Colors.red,
                         image: const Image(
@@ -62,7 +94,25 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.only(top: 18),
                       child: RoundedButton(
                         outlined: false,
-                        onPressed: _incrementCounter,
+                        onPressed: () {
+                          Get.to(RoomPage());
+                          // AuthenticationHelper()
+                          //     .signInWithFacebook()
+                          //     .then((result) {
+                          //     if (result == null) {
+                          //       Get.off(const RoomPage());
+                          //     } else {
+                          //       // print(result);
+                          //       ScaffoldMessenger.of(context)
+                          //           .showSnackBar(SnackBar(
+                          //         content: Text(
+                          //           result,
+                          //           style: const TextStyle(fontSize: 16),
+                          //         ),
+                          //       ));
+                          //     }
+                          //   });
+                        },
                         text: "Login with Facebook",
                         backgroundColor: Colors.blue,
                         icon: Icons.facebook,
@@ -81,7 +131,19 @@ class _LoginPageState extends State<LoginPage> {
                         textStyle:
                             const TextStyle(fontSize: 16, letterSpacing: 2),
                       ),
-                      onPressed: () {},
+                      onPressed: () => {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          elevation: 4,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(25.0))),
+                          builder: (BuildContext context) {
+                            return Signup();
+                          },
+                        ),
+                      },
                       child: const Text('SIGN UP WITH EMAIL'),
                     ),
                   ),
