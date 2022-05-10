@@ -5,9 +5,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 class AuthenticationHelper {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // User? user;
-
-//SIGN UP METHOD
+  //SIGN UP METHOD
   Future<String?> signUp(
       {required String email, required String password}) async {
     try {
@@ -22,7 +20,7 @@ class AuthenticationHelper {
     }
   }
 
-  //SIGN IN METHODJ
+  //SIGN IN METHOD
   Future<String?> signIn(
       {required String email, required String password}) async {
     try {

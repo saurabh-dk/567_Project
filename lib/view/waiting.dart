@@ -11,7 +11,7 @@ class WaitingPage extends StatefulWidget {
 }
 
 class _WaitingPageState extends State<WaitingPage> {
-  void _incrementCounter() {}
+  // void _incrementCounter() {}
 
   @override
   Widget build(BuildContext context) {

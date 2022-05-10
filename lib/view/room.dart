@@ -12,6 +12,8 @@ class RoomPage extends StatefulWidget {
 }
 
 class _RoomPageState extends State<RoomPage> {
+  String? code;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,14 +32,19 @@ class _RoomPageState extends State<RoomPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(8, 24, 8, 56),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 24, 8, 56),
                         child: Material(
                           child: TextField(
                             textAlign: TextAlign.center,
                             textCapitalization: TextCapitalization.characters,
-                            style: TextStyle(fontSize: 18),
-                            decoration: InputDecoration(
+                            style: const TextStyle(fontSize: 18),
+                            onChanged: (value) {
+                              setState(() {
+                                code = value;
+                              });
+                            },
+                            decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Enter the invite code',
                             ),
