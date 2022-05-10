@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class QuizProvider {
   static const String _baseDomain = 'https://opentdb.com/';
   static const String _category = 'api_category.php';
-  static const String _question = 'browse.php';
+  static const String _question = 'api.php?amount=10';
 
   Future<Category> getCategories() async {
     final response = await http.get(Uri.parse(_baseDomain + _category));
