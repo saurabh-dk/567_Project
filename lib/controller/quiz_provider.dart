@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:quizap/model/category.dart';
+import 'package:quizap/model/question.dart';
 import 'package:http/http.dart' as http;
 
 class QuizProvider {
