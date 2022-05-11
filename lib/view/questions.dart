@@ -116,7 +116,7 @@ class _TopicPageState extends State<TopicPage> {
                 future: futureTopic,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return Text(snapshot.data!.results!.length.toString());
+                    return Text(snapshot.data!.results![1].category.toString());
                   } else if (snapshot.hasError) {
                     return Text('${snapshot.error}');
                   }
