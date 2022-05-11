@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quizap/view/questions.dart';
+import 'package:quizap/view/categories.dart';
 import 'package:quizap/view/custom_widgets/rounded_button.dart';
 import 'package:quizap/view/settings.dart';
 import 'package:quizap/view/waiting.dart';
@@ -16,6 +16,7 @@ class _RoomPageState extends State<RoomPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -31,17 +32,22 @@ class _RoomPageState extends State<RoomPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(8, 24, 8, 56),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 24, 8, 56),
                         child: Material(
-                          child: TextField(
+                          child: TextFormField(
                             textAlign: TextAlign.center,
                             textCapitalization: TextCapitalization.characters,
-                            style: TextStyle(fontSize: 18),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
+                            style: const TextStyle(fontSize: 18),
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(100))),
                               hintText: 'Enter the invite code',
                             ),
+                            onSaved: (val) {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
                           ),
                         ),
                       ),
@@ -64,7 +70,7 @@ class _RoomPageState extends State<RoomPage> {
                         outlined: false,
                         onPressed: () {
                           // TO-DO CHANGE THIS
-                          Get.to(const TopicPage());
+                          Get.to(() => const WaitingPage());
                         },
                         maxWidth: MediaQuery.of(context).size.width * 0.6,
                         text: 'Create a room'.toUpperCase(),
@@ -73,8 +79,8 @@ class _RoomPageState extends State<RoomPage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
+              Align(
+                alignment: Alignment.bottomCenter,
                 child: Center(
                   child: TextButton.icon(
                     label: Text("Settings".toUpperCase()),

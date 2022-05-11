@@ -7,7 +7,7 @@ import 'package:quizap/view/room.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -21,6 +21,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const LoginPage());
+        home: AuthenticationHelper().getUser() != null
+            ? const RoomPage()
+            : const LoginPage());
   }
 }
