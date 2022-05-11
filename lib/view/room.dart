@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizap/view/categories.dart';
+import 'package:quizap/view/winner.dart';
 import 'package:quizap/view/custom_widgets/rounded_button.dart';
 import 'package:quizap/view/settings.dart';
 import 'package:quizap/view/waiting.dart';
@@ -70,7 +71,7 @@ class _RoomPageState extends State<RoomPage> {
                         outlined: false,
                         onPressed: () {
                           // TO-DO CHANGE THIS
-                          Get.to(() => const WaitingPage());
+                          Get.to(ResultPage());
                         },
                         maxWidth: MediaQuery.of(context).size.width * 0.6,
                         text: 'Create a room'.toUpperCase(),
