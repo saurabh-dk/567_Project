@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:quizap/controller/authentication.dart';
 import 'package:quizap/view/custom_widgets/rounded_button.dart';
 import 'package:quizap/view/login.dart';
+import 'package:quizap/view/winner.dart';
 
 class QuestionsPage extends StatefulWidget {
   const QuestionsPage({Key? key}) : super(key: key);
@@ -56,6 +57,7 @@ class _QuestionsPageState extends State<QuestionsPage>
         controller.forward(from: 10);
       }
     });
+    Timer(Duration(seconds: 2), () => Get.offAll(() => ResultPage()));
   }
 
   @override

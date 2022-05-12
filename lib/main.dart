@@ -4,6 +4,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:quizap/controller/authentication.dart';
 import 'package:quizap/view/login.dart';
 import 'package:quizap/view/room.dart';
+import 'package:flutter/services.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,12 +18,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        title: 'quizap',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      title: 'quizap',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 0,
+          elevation: 0,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            // Status bar color
+            statusBarColor: Color.fromRGBO(250, 250, 250, 1),
+            statusBarIconBrightness:
+                Brightness.dark, // For Android (dark icons)
+            statusBarBrightness: Brightness.light, // For iOS (dark icons)
+          ),
         ),
-        home: AuthenticationHelper().getUser() != null
+        body: AuthenticationHelper().getUser() != null
             ? const RoomPage()
-            : const LoginPage());
+            : const LoginPage(),
+      ),
+    );
   }
 }
