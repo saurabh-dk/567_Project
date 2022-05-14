@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 import 'package:quizap/view/categories.dart';
 import 'package:quizap/view/questions.dart';
 import 'package:quizap/view/winner.dart';
+import 'package:quizap/controller/room_connection.dart';
 import 'package:quizap/view/custom_widgets/rounded_button.dart';
 import 'package:quizap/view/settings.dart';
 import 'package:quizap/view/waiting.dart';
+import 'dart:math';
 
 class RoomPage extends StatefulWidget {
   const RoomPage({Key? key}) : super(key: key);
@@ -15,6 +17,17 @@ class RoomPage extends StatefulWidget {
 }
 
 class _RoomPageState extends State<RoomPage> {
+  String? code;
+
+  bool _isLoading = false;
+
+  String generateCode(int len) {
+    var r = Random.secure();
+    const _chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    return List.generate(len, (index) => _chars[r.nextInt(_chars.length)])
+        .join();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,8 +58,13 @@ class _RoomPageState extends State<RoomPage> {
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(100))),
+                              
                               hintText: 'Enter the invite code',
-                            ),
+                            onChanged: (value) {
+                              setState(() {
+                                code = value;
+                              });
+                            },
                             onSaved: (val) {
                               FocusManager.instance.primaryFocus?.unfocus();
                             },
@@ -55,8 +73,21 @@ class _RoomPageState extends State<RoomPage> {
                       ),
                       RoundedButton(
                         outlined: false,
+                        isLoading: _isLoading,
                         onPressed: () {
-                          Get.to(() => const QuestionsPage());
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          RoomConnection().addUserToRoom(roomCode: code!).then(
+                            (value) {
+                              setState(() {
+                                _isLoading = false;
+                              });
+                              if (value) {
+                                Get.to(() => const WaitingPage());
+                              }
+                            },
+                          );
                         },
                         maxWidth: MediaQuery.of(context).size.width * 0.6,
                         text: 'Join now!'.toUpperCase(),
@@ -71,8 +102,10 @@ class _RoomPageState extends State<RoomPage> {
                       RoundedButton(
                         outlined: false,
                         onPressed: () {
-                          // TO-DO CHANGE THIS
-                          Get.to(() => const WaitingPage());
+                          final code = generateCode(9);
+                          RoomConnection().createRoom(code: code).then((value){
+                            Get.to(() => const WaitingPage());
+                          });
                         },
                         maxWidth: MediaQuery.of(context).size.width * 0.6,
                         text: 'Create a room'.toUpperCase(),
