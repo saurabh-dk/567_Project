@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quizap/controller/room_connection.dart';
 import 'package:quizap/view/custom_widgets/rounded_button.dart';
 import 'package:quizap/view/settings.dart';
 import 'package:quizap/view/waiting.dart';
+import 'dart:math';
 
 class RoomPage extends StatefulWidget {
   const RoomPage({Key? key}) : super(key: key);
@@ -13,6 +15,15 @@ class RoomPage extends StatefulWidget {
 
 class _RoomPageState extends State<RoomPage> {
   String? code;
+
+  bool _isLoading = false;
+
+  String generateCode(int len) {
+    var r = Random.secure();
+    const _chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    return List.generate(len, (index) => _chars[r.nextInt(_chars.length)])
+        .join();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +64,21 @@ class _RoomPageState extends State<RoomPage> {
                       ),
                       RoundedButton(
                         outlined: false,
+                        isLoading: _isLoading,
                         onPressed: () {
-                          Get.to(() => const WaitingPage());
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          RoomConnection().addUserToRoom(roomCode: code!).then(
+                            (value) {
+                              setState(() {
+                                _isLoading = false;
+                              });
+                              if (value) {
+                                Get.to(() => const WaitingPage());
+                              }
+                            },
+                          );
                         },
                         maxWidth: MediaQuery.of(context).size.width * 0.6,
                         text: 'Join now!'.toUpperCase(),
@@ -68,7 +92,12 @@ class _RoomPageState extends State<RoomPage> {
                       ),
                       RoundedButton(
                         outlined: false,
-                        onPressed: () {},
+                        onPressed: () {
+                          final code = generateCode(9);
+                          RoomConnection().createRoom(code: code).then((value){
+                            Get.to(() => const WaitingPage());
+                          });
+                        },
                         maxWidth: MediaQuery.of(context).size.width * 0.6,
                         text: 'Create a room'.toUpperCase(),
                       ),
@@ -77,7 +106,7 @@ class _RoomPageState extends State<RoomPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 20),
+                padding: const EdgeInsets.only(bottom: 0),
                 child: Center(
                   child: TextButton.icon(
                     label: Text("Settings".toUpperCase()),
