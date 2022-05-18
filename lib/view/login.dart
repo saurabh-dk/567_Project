@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:quizap/controller/authentication.dart';
 import 'package:quizap/view/custom_widgets/email_login.dart';
@@ -91,34 +90,34 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 18),
-                      child: RoundedButton(
-                        outlined: false,
-                        onPressed: () {
-                          Get.to(() => const RoomPage());
-                          // AuthenticationHelper()
-                          //     .signInWithFacebook()
-                          //     .then((result) {
-                          //     if (result == null) {
-                          //       Get.off(const RoomPage());
-                          //     } else {
-                          //       // print(result);
-                          //       ScaffoldMessenger.of(context)
-                          //           .showSnackBar(SnackBar(
-                          //         content: Text(
-                          //           result,
-                          //           style: const TextStyle(fontSize: 16),
-                          //         ),
-                          //       ));
-                          //     }
-                          //   });
-                        },
-                        text: "Login with Facebook",
-                        backgroundColor: Colors.blue,
-                        icon: Icons.facebook,
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 18),
+                    //   child: RoundedButton(
+                    //     outlined: false,
+                    //     onPressed: () {
+                    //       Get.to(() => const RoomPage());
+                    //       // AuthenticationHelper()
+                    //       //     .signInWithFacebook()
+                    //       //     .then((result) {
+                    //       //     if (result == null) {
+                    //       //       Get.off(const RoomPage());
+                    //       //     } else {
+                    //       //       // print(result);
+                    //       //       ScaffoldMessenger.of(context)
+                    //       //           .showSnackBar(SnackBar(
+                    //       //         content: Text(
+                    //       //           result,
+                    //       //           style: const TextStyle(fontSize: 16),
+                    //       //         ),
+                    //       //       ));
+                    //       //     }
+                    //       //   });
+                    //     },
+                    //     text: "Login with Facebook",
+                    //     backgroundColor: Colors.blue,
+                    //     icon: Icons.facebook,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

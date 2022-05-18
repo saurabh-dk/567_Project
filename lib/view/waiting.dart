@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quizap/controller/room_connection.dart';
+import 'package:quizap/model/question.dart';
 import 'package:quizap/view/categories.dart';
-
-import 'custom_widgets/rounded_button.dart';
+import 'package:quizap/view/questions.dart';
 
 class WaitingPage extends StatefulWidget {
   const WaitingPage({Key? key}) : super(key: key);
@@ -13,7 +17,62 @@ class WaitingPage extends StatefulWidget {
 }
 
 class _WaitingPageState extends State<WaitingPage> {
-  // void _incrementCounter() {}
+  bool isCreator = false;
+  late String roomCode;
+
+  late Stream<QuerySnapshot> _listener;
+
+  late StreamSubscription<QuerySnapshot> sub;
+
+  @override
+  void initState() {
+    isCreator = Get.arguments["isCreator"];
+    roomCode = Get.arguments["roomCode"];
+
+    if (isCreator) {
+      _listener = RoomConnection().getUserCount(roomCode: roomCode);
+      sub = _listener.listen((event) {
+        if (event.docs.length > 1) {
+          Get.to(() => const CategoriesPage(),
+              arguments: {"roomCode": roomCode, "isCreator": isCreator});
+        }
+      });
+    } else {
+      _listener = RoomConnection().getQuestionsPresent(roomCode: roomCode);
+      sub = _listener.listen((event) {
+        if (event.docs.isNotEmpty) {
+          showDialog(
+            barrierDismissible: false,
+            builder: (ctx) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                ),
+              );
+            },
+            context: context,
+          );
+          RoomConnection().getRoomQuestions(roomCode: roomCode).then((res) {
+            Navigator.of(context).pop();
+            Question questions = Question.fromJson(res.docs.first.data());
+            final args = {
+              "questions": questions,
+              "isCreator": isCreator,
+              "roomCode": roomCode
+            };
+            Get.to(() => const QuestionsPage(), arguments: args);
+          });
+        }
+      });
+    }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    sub.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +89,7 @@ class _WaitingPageState extends State<WaitingPage> {
                 ),
               ),
               Text(
-                'ABC-123-XYZ',
+                roomCode,
                 style: Theme.of(context).textTheme.headline5,
               ),
               Padding(
@@ -55,24 +114,10 @@ class _WaitingPageState extends State<WaitingPage> {
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  'Waiting for other player',
+                  isCreator
+                      ? 'Waiting for other player'
+                      : 'Waiting to choose the topic',
                   style: Theme.of(context).textTheme.headline5,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Center(
-                  child: TextButton.icon(
-                    label: Text("Next".toUpperCase()),
-                    style: TextButton.styleFrom(
-                      textStyle: const TextStyle(
-                          letterSpacing: 2, fontWeight: FontWeight.bold),
-                    ),
-                    icon: const Icon(Icons.arrow_forward),
-                    onPressed: () {
-                      Get.to(() => const CategoriesPage());
-                    },
-                  ),
                 ),
               ),
             ],

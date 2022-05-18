@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quizap/view/categories.dart';
-import 'package:quizap/view/questions.dart';
-import 'package:quizap/view/winner.dart';
 import 'package:quizap/controller/room_connection.dart';
 import 'package:quizap/view/custom_widgets/rounded_button.dart';
 import 'package:quizap/view/settings.dart';
@@ -55,11 +52,13 @@ class _RoomPageState extends State<RoomPage> {
                             textCapitalization: TextCapitalization.characters,
                             style: const TextStyle(fontSize: 18),
                             decoration: const InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(100))),
-                              
                               hintText: 'Enter the invite code',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(100),
+                                ),
+                              ),
+                            ),
                             onChanged: (value) {
                               setState(() {
                                 code = value;
@@ -84,7 +83,14 @@ class _RoomPageState extends State<RoomPage> {
                                 _isLoading = false;
                               });
                               if (value) {
-                                Get.to(() => const WaitingPage());
+                                // Get.to(() => const WaitingPage(), );
+                                Get.to(
+                                  () => const WaitingPage(),
+                                  arguments: {
+                                    "isCreator": false,
+                                    "roomCode": code!
+                                  },
+                                );
                               }
                             },
                           );
@@ -103,8 +109,14 @@ class _RoomPageState extends State<RoomPage> {
                         outlined: false,
                         onPressed: () {
                           final code = generateCode(9);
-                          RoomConnection().createRoom(code: code).then((value){
-                            Get.to(() => const WaitingPage());
+                          RoomConnection().createRoom(code: code).then((value) {
+                            // Get.to(() => const WaitingPage());
+                            final parameters = {
+                              "roomCode": code,
+                              "isCreator": true,
+                            };
+                            Get.to(() => const WaitingPage(),
+                                arguments: parameters);
                           });
                         },
                         maxWidth: MediaQuery.of(context).size.width * 0.6,

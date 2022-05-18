@@ -76,6 +76,10 @@ class AuthenticationHelper {
     }
   }
 
+  Future<void> changeDisplayName({required String name}) async {
+    return _auth.currentUser!.updateDisplayName(name);
+  }
+
   //SIGN OUT METHOD
   Future<void> signOut() async {
     await _auth.signOut();
